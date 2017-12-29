@@ -34,8 +34,8 @@ class AddCard extends Component {
     if (question.length && answer.length > 0) {
       this.props.dispatch(addCard(deckId, { question, answer }));
       this.props.navigation.goBack();
-      console.log(deckId,"id");
-      addCardToDeck(deckId, {card:{ question, answer }});
+      console.log(deckId, "id");
+      addCardToDeck(deckId, { card: { question, answer } });
       this.setState({ question: "", answer: "", validate: false });
     } else {
       this.setState({ validate: true });
@@ -45,7 +45,7 @@ class AddCard extends Component {
     const url = "http://lorempixel.com/400/200/";
     const { deckId } = this.props.navigation.state.params.title;
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <KeyboardAvoidingView behavior="padding">
           <Card
             containerStyle={{ padding: 5 }}
@@ -71,38 +71,39 @@ class AddCard extends Component {
             {this.state.validate && (
               <FormValidationMessage>Answer Required</FormValidationMessage>
             )}
-            <Button
-              raised
-              onPress={() => this.addCard()}
-              large
-              buttonStyle={styles.btnStyles}
-              icon={{
-                name: "diff",
-                type: "octicon"
-              }}
-              title="Submit ! ! "
-            />
-            <Button
-              raised
-              onPress={() => this.props.navigation.goBack()}
-              large
-              buttonStyle={styles.btnStyles}
-              icon={{
-                name: "circle-slash",
-                type: "octicon"
-              }}
-              title="Cancel ! ! "
-            />
+            <View style={styles.btnRow}>
+              <Button
+                raised
+                onPress={() => this.addCard()}
+                large
+                buttonStyle={styles.btnStyles}
+                icon={{
+                  name: "diff",
+                  type: "octicon"
+                }}
+                title="Submit ! ! "
+              />
+              <Button
+                raised
+                onPress={() => this.props.navigation.goBack()}
+                large
+                buttonStyle={styles.btnStyles2}
+                icon={{
+                  name: "circle-slash",
+                  type: "octicon"
+                }}
+                title="Cancel ! ! "
+              />
+            </View>
           </Card>
         </KeyboardAvoidingView>
-      </View>
+      </ScrollView>
     );
   }
 }
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
     padding: 25,
     backgroundColor: "#F8F8F8"
   },
@@ -115,6 +116,17 @@ const styles = StyleSheet.create({
     backgroundColor: "green",
     borderRadius: 20,
     margin: 10
+  },
+  btnStyles2: {
+    backgroundColor: "red",
+    borderRadius: 20,
+    margin: 10
+  },
+  btnRow: {
+    flex: 1,
+    justifyContent: "center",
+    flexDirection: "row",
+    padding: 10
   }
 });
 export default connect()(AddCard);

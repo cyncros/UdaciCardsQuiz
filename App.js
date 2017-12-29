@@ -11,6 +11,7 @@ import Deck from "./components/Deck";
 import AddCard from "./components/AddCard";
 import Quiz from "./components/Quiz"
 import { Constants } from "expo";
+import {setLocalNotification} from './utils/Notifications'
 
 const store = createStore(reducer);
 
@@ -91,6 +92,10 @@ const MainNavigator = StackNavigator({
 });
 
 export default class App extends React.Component {
+componentDidMount(){
+  setLocalNotification()
+}
+
   render() {
     return (
       <Provider store={store}>

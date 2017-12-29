@@ -26,41 +26,43 @@ export default class SingleCard extends Component {
   };
 
   render() {
-      console.log(this.props.card,"card Q&A");
+    console.log(this.props.card, "card Q&A");
     //Answer ON!!
     if (this.state.show) {
       return (
         <View style={styles.container}>
           <Text style={styles.titleText}>Answer is...</Text>
           <Text style={styles.textStyle}>{this.props.card.card.answer}</Text>
-          <Button
-            raised
-            onPress={() => {
-              this.answer();
-              this.props.handleAnswer(true);
-            }}
-            large
-            buttonStyle={styles.btnCorrect}
-            icon={{
-              name: "check",
-              type: "octicon"
-            }}
-            title="Correct!!"
-          />
-          <Button
-            raised
-            onPress={() => {
-              this.answer();
-              this.props.handleAnswer(false);
-            }}
-            large
-            buttonStyle={styles.btnError}
-            icon={{
-              name: "check",
-              type: "octicon"
-            }}
-            title="Incorrect!!"
-          />
+          <View style={styles.btnRow}>
+            <Button
+              raised
+              onPress={() => {
+                this.answer();
+                this.props.handleAnswer(true);
+              }}
+              large
+              buttonStyle={styles.btnCorrect}
+              icon={{
+                name: "check",
+                type: "octicon"
+              }}
+              title="Correct!!"
+            />
+            <Button
+              raised
+              onPress={() => {
+                this.answer();
+                this.props.handleAnswer(false);
+              }}
+              large
+              buttonStyle={styles.btnError}
+              icon={{
+                name: "check",
+                type: "octicon"
+              }}
+              title="Incorrect!!"
+            />
+          </View>
         </View>
       );
     }
@@ -88,7 +90,6 @@ export default class SingleCard extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
     padding: 25,
     backgroundColor: "#F8F8F8"
   },
@@ -100,6 +101,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     textAlign: "center"
+  },
+  btnRow: {
+    flex: 1,
+    justifyContent: "center",
+    flexDirection: "row",
+    padding: 10
   },
   btnStyles: {
     backgroundColor: "#3399ff",

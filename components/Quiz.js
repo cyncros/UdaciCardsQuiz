@@ -18,6 +18,10 @@ import {
 } from "react-native-elements";
 import { connect } from "react-redux";
 import SingleCard from "../components/SingleCard";
+import {
+  clearLocalNotification,
+  setLocalNotification
+} from "../utils/Notifications";
 
 class Quiz extends Component {
   state = {
@@ -34,6 +38,10 @@ class Quiz extends Component {
     index++;
     finish = index === questions.length;
     this.setState({ index, score, finish });
+
+    if (finish) {
+      clearLocalNotification().then(setLocalNotification);
+    }
   };
 
   startOver = () => {
@@ -107,7 +115,6 @@ class Quiz extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
     padding: 25,
     backgroundColor: "#F8F8F8"
   },
@@ -124,7 +131,8 @@ const styles = StyleSheet.create({
   centerbtn: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    padding:10
   }
 });
 export default connect(state => state)(Quiz);

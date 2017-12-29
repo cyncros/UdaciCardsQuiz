@@ -42,36 +42,30 @@ class Deck extends Component {
               <Text style={styles.textStyle}>{`There are ${
                 numQuest
               } questions on the Deck...`}</Text>
-              <Button
-                onPress={() => this.newQuestion(deckId.title)}
-                raised
-                large
-                buttonStyle={{
-                  backgroundColor: "purple",
-                  borderRadius: 20,
-                  margin: 5
-                }}
-                icon={{
-                  name: "page-copy",
-                  type: "foundation"
-                }}
-                title="Add Card"
-              />
-              <Button
-                onPress={() => this.takeQuiz(deckId)}
-                raised
-                large
-                buttonStyle={{
-                  backgroundColor: "purple",
-                  borderRadius: 20,
-                  margin: 5
-                }}
-                icon={{
-                  name: "page-search",
-                  type: "foundation"
-                }}
-                title="Quiz ! ! !"
-              />
+              <View style={styles.btnRow}>
+                <Button
+                  onPress={() => this.newQuestion(deckId.title)}
+                  raised
+                  large
+                  buttonStyle={styles.btnStyles}
+                  icon={{
+                    name: "page-copy",
+                    type: "foundation"
+                  }}
+                  title="Add Card"
+                />
+                <Button
+                  onPress={() => this.takeQuiz(deckId)}
+                  raised
+                  large
+                  buttonStyle={styles.btnStyles}
+                  icon={{
+                    name: "page-search",
+                    type: "foundation"
+                  }}
+                  title="Quiz ! ! !"
+                />
+              </View>
             </View>
           ) : (
             <View style={styles.center}>
@@ -82,11 +76,7 @@ class Deck extends Component {
                 onPress={() => this.newQuestion(deckId.title)}
                 raised
                 large
-                buttonStyle={{
-                  backgroundColor: "purple",
-                  borderRadius: 20,
-                  margin: 5
-                }}
+                buttonStyle={styles.btnStyles}
                 icon={{
                   name: "file-plus",
                   type: "feather"
@@ -103,7 +93,6 @@ class Deck extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
     padding: 25,
     backgroundColor: "#F8F8F8"
   },
@@ -115,12 +104,24 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     fontSize: 24,
-    textAlign: "center"
+    textAlign: "center",
+    padding: 5
   },
   titleText: {
     fontSize: 20,
     fontWeight: "bold",
     textAlign: "center"
+  },
+  btnStyles: {
+    backgroundColor: "purple",
+    borderRadius: 20,
+    margin: 5
+  },
+  btnRow: {
+    flex: 1,
+    justifyContent: "center",
+    flexDirection: "row",
+    padding: 10
   }
 });
 export default connect(state => state)(Deck);

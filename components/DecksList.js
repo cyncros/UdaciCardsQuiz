@@ -5,7 +5,8 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  Image
+  Image,
+  Animated
 } from "react-native";
 import { connect } from "react-redux";
 import { fetchDecks } from "../actions";
@@ -29,7 +30,7 @@ class DeckList extends Component {
     console.log(infos, "INFO");
 
     //no DECKS found
-    if (infos === null||infos===undefined) {
+    if (infos === null || infos === undefined) {
       return (
         <View style={styles.center}>
           <Icon name="emoji-sad" type="entypo" color="purple" size={75} />
