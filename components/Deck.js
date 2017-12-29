@@ -13,8 +13,7 @@ import { h1, Card, ListItem, Button } from "react-native-elements";
 class Deck extends Component {
   newQuestion = title => {
     this.props.navigation.navigate("AddCard", {
-      title,
-      update: () => this.refreshOnGoBack()
+      title
     });
   };
 

@@ -16,52 +16,91 @@ import {
   FormInput,
   FormValidationMessage
 } from "react-native-elements";
+import { connect } from "react-redux";
+import SingleCard from "../components/SingleCard";
 
-export default class App extends React.Component {
+class Quiz extends Component {
+  state = {
+    index: 0,
+    score: 0,
+    finish: false
+  };
+  handleAnswer = correct => {
+    const deckId = this.props.navigation.state.params.deckId.title;
+    const questions = this.props.deck[deckId].questions;
+    let { index, score, finish } = this.state;
+
+    score = correct ? score + 1 : score;
+    index++;
+    finish = index === questions.length;
+    this.setState({ index, score, finish });
+  };
+
+  startOver = () => {
+    this.setState({ index: 0, score: 0, finish: false });
+  };
+
+  backDeck = () => {
+    this.props.navigation.goBack();
+  };
+
   render() {
-    const users = [
-        {
-          name: "brynn",
-          avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg"
-        }
-      ],
-      url = "http://lorempixel.com/400/200/";
+    const url = "http://lorempixel.com/400/200/";
+    const info = this.props.navigation.state.params.deckId.title;
+
+    let { index, score, finish } = this.state;
+    let quest = this.props.deck[info].questions;
+    console.log(this.props.deck);
+    console.log(info, "infoQUIZ");
+    console.log(quest, "quest");
+    console.log(index, "index");
+    if (finish) {
+      return (
+        <View style={styles.container}>
+          <Card
+            title={` Final Score:${score / quest.length * 100} % `}
+            image={{ uri: url }}
+            featuredTitle={`Number of questions ${quest.length}`}
+          >
+            <Button
+              raised
+              onPress={() => this.startOver()}
+              large
+              buttonStyle={styles.btnStyles}
+              icon={{
+                name: "file-symlink-file",
+                type: "octicon"
+              }}
+              title="Re-Start"
+            />
+            <Button
+              raised
+              onPress={() => this.backDeck()}
+              large
+              buttonStyle={styles.btnStyles}
+              icon={{
+                name: "file-code",
+                type: "octicon"
+              }}
+              title="Back"
+            />
+          </Card>
+        </View>
+      );
+    }
 
     return (
-      <View style={styles.container}>
-        {users.map((u, i) => {
-          return (
-            <Card
-              containerStyle={{ padding: 5 }}
-              key={i}
-
-              image={{ uri: url }}
-              featuredTitle={"New DECK TITLE"}
-            >
-              <FormLabel>Question</FormLabel>
-              <FormInput/>
-              <FormValidationMessage>Error message</FormValidationMessage>
-              <FormLabel>Answer</FormLabel>
-              <FormInput/>
-              <FormValidationMessage>Error message</FormValidationMessage>
-              <Button
-                raised
-                large
-                buttonStyle={{
-                  backgroundColor: "green",
-                  borderRadius: 20,
-                  margin: 20
-                }}
-                icon={{
-                  name: "diff",
-                  type: "octicon"
-                }}
-                title="Submit ! ! "
-              />
-            </Card>
-          );
-        })}
-      </View>
+      <ScrollView style={styles.container}>
+        <Card
+          containerStyle={{ padding: 5 }}
+          title={`${info} Deck - Quiz  `}
+          image={{ uri: url }}
+          featuredTitle={`Remaining Questions ${quest.length - index}`}
+          featuredSubtitle={`Answered questions ${score} `}
+        >
+          <SingleCard card={quest[index]} handleAnswer={this.handleAnswer} />
+        </Card>
+      </ScrollView>
     );
   }
 }
@@ -76,5 +115,16 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     textAlign: "center"
+  },
+  btnStyles: {
+    backgroundColor: "#3399ff",
+    borderRadius: 20,
+    margin: 10
+  },
+  centerbtn: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
   }
 });
+export default connect(state => state)(Quiz);

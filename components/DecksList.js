@@ -24,8 +24,12 @@ class DeckList extends Component {
   };
 
   render() {
+    const infos = this.props.deck;
+    const url = "http://lorempixel.com/400/200/";
+    console.log(infos, "INFO");
+
     //no DECKS found
-    if (this.props.deck === null) {
+    if (infos === null||infos===undefined) {
       return (
         <View style={styles.center}>
           <Icon name="emoji-sad" type="entypo" color="purple" size={75} />
@@ -36,39 +40,37 @@ class DeckList extends Component {
           <Text style={styles.textStyle}> Add one PLZ</Text>
         </View>
       );
+    } else {
+      return (
+        <ScrollView style={styles.container}>
+          <Text style={styles.titleText}> DECKS ! ! ! </Text>
+          {Object.keys(infos).map(i => {
+            const { title, questions, ...rest } = infos[i];
+            return (
+              <Card
+                containerStyle={{ padding: 5 }}
+                key={i}
+                title={title}
+                image={{ uri: url }}
+                featuredTitle={`${questions.length} Cards`}
+              >
+                <Button
+                  raised
+                  large
+                  buttonStyle={{ backgroundColor: "purple", borderRadius: 20 }}
+                  icon={{
+                    name: "broadcast",
+                    type: "octicon"
+                  }}
+                  title={`${title} - Deck`}
+                  onPress={() => this.handledEvent(title)}
+                />
+              </Card>
+            );
+          })}
+        </ScrollView>
+      );
     }
-    const url = "http://lorempixel.com/400/200/";
-    const infos = this.props.deck;
-    console.log(infos, "INFO");
-    return (
-      <ScrollView style={styles.container}>
-        <Text style={styles.titleText}> DECKS ! ! ! </Text>
-        {Object.keys(infos).map(i => {
-          const { title, questions, ...rest } = infos[i];
-          return (
-            <Card
-              containerStyle={{ padding: 5 }}
-              key={i}
-              title={title}
-              image={{ uri: url }}
-              featuredTitle={`${questions.length} Cards`}
-            >
-              <Button
-                raised
-                large
-                buttonStyle={{ backgroundColor: "purple", borderRadius: 20 }}
-                icon={{
-                  name: "broadcast",
-                  type: "octicon"
-                }}
-                title={`${title} - Deck`}
-                onPress={() => this.handledEvent(title)}
-              />
-            </Card>
-          );
-        })}
-      </ScrollView>
-    );
   }
 }
 const styles = StyleSheet.create({
