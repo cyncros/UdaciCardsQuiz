@@ -5,30 +5,25 @@ mobile devices Android or IOS that should make cards so the user can take quiz
 over the questions already existed, also to get notifications to study on every
 day.
 
-Already Tested only on IPAD mini 1st GEN. and Samsung S4 mini
+Already Tested on IPAD mini 1st GEN. and Samsung S4 mini (Landscape - ONLY)
 
 Prerequisites
 
-Node JS
+Node JS - v7.10.1
 
-npm install -g create-react-native-app
+npm  v4.6.1
 
-The App has been developed and tested using <a href="https://expo.io/">EXPO
+The App has been developed using <a href="https://expo.io/">EXPO
 APP</a>
 
 Installing
 
 --App dependencies
 
-CLONE the App from: <a href:"https://github.com/cyncros/UdaciCardsQuiz"/>
-
-install all project dependencies with npm or yarn install start the development
-server with yarn start
+CLONE the App from: <a href="https://github.com/cyncros/UdaciCardsQuiz"> HERE</a> <br>
+INSTALL: npm install<br>
+RUN: yarn start
 
 Authors
 
 Moises Torres - \* - <a href="https://github.com/cyncros">Cyncros</a>
-
-Acknowledgments
-
-ES6 Nanodegree Program on Udacity.com
