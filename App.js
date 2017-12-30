@@ -25,7 +25,7 @@ function UdaciStatusBar({ backgroundColor, ...props }) {
 
 const Tabs = TabNavigator(
   {
-    History: {
+    DeckList: {
       screen: DeckList,
       navigationOptions: {
         tabBarLabel: "Deck List",
@@ -68,8 +68,11 @@ const MainNavigator = StackNavigator({
       title: "HOME"
     }
   },
-  DeckList: {
-    screen: DeckList
+  AddDeck: {
+    screen: CreateDeck,
+    navigationOptions: {
+      title: "Create a new DECK to start over"
+    }
   },
   Deck: {
     screen: Deck,

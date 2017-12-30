@@ -20,6 +20,9 @@ class Deck extends Component {
   takeQuiz = deckId => {
     this.props.navigation.navigate("Quiz", { deckId });
   };
+  backDeckList=()=>{
+    this.props.navigation.navigate("DeckList");
+  }
 
   render() {
     const url = "http://lorempixel.com/400/200/";
@@ -84,6 +87,17 @@ class Deck extends Component {
               />
             </View>
           )}
+          <Button
+            raised
+            onPress={() => this.backDeckList()}
+            large
+            buttonStyle={styles.btnStyles}
+            rightIcon={{
+              name: "home",
+              type: "octicon"
+            }}
+            title="Deck List"
+          />
         </Card>
       </ScrollView>
     );

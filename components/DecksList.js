@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { connect } from "react-redux";
 import { fetchDecks } from "../actions";
-import { getDecks } from "../utils/api";
+import { getDecks, clearData, delDeck } from "../utils/api";
 
 import { h1, Card, ListItem, Button, Icon } from "react-native-elements";
 
@@ -18,27 +18,37 @@ class DeckList extends Component {
   state = {
     opacity: new Animated.Value(0)
   };
+
   componentDidMount() {
+    this.fetchingData();
     const { opacity } = this.state;
     Animated.timing(opacity, { toValue: 1, duration: 1000 }).start();
   }
-  async componentDidMount() {
+  fetchingData = async () => {
     const { dispatch } = this.props;
     const data = await getDecks();
     dispatch(fetchDecks(JSON.parse(data)));
-  }
+  };
+
   handledEvent = title => {
-    console.log(title,"decktitle");
+    console.log(title, "decktitle");
     this.props.navigation.navigate("Deck", { title });
   };
+
+  delBtn = infos => {};
 
   render() {
     const infos = this.props.deck;
     const url = "http://lorempixel.com/400/200/";
     console.log(infos, "INFO");
+    console.log(this.props, "props");
 
     //no DECKS found
-    if (infos === null || infos === undefined) {
+    if (
+      infos === null ||
+      infos === undefined ||
+      Object.keys(infos).length < 0
+    ) {
       return (
         <View style={styles.center}>
           <Icon name="emoji-sad" type="entypo" color="purple" size={75} />
@@ -63,26 +73,60 @@ class DeckList extends Component {
                 image={{ uri: url }}
                 featuredTitle={`${questions.length} Cards`}
               >
-                <Button
-                  raised
-                  large
-                  buttonStyle={{ backgroundColor: "purple", borderRadius: 20 }}
-                  icon={{
-                    name: "broadcast",
-                    type: "octicon"
-                  }}
-                  title={`${title} - Deck`}
-                  onPress={() => this.handledEvent(title)}
-                />
+                <View style={styles.btnRow}>
+                  <Button
+                    raised
+                    large
+                    buttonStyle={styles.btnStyles}
+                    icon={{
+                      name: "broadcast",
+                      type: "octicon"
+                    }}
+                    title={`${title} - Deck`}
+                    onPress={() => this.handledEvent(title)}
+                  />
+                  <Button
+                    raised
+                    large
+                    buttonStyle={styles.btnStyles}
+                    icon={{
+                      name: "x",
+                      type: "octicon"
+                    }}
+                    title={"Delete"}
+                    onPress={() => {
+                      delDeck(title);
+                      this.fetchingData();
+                    }}
+                  />
+                </View>
               </Card>
             );
           })}
+
+          <Button
+            raised
+            large
+            buttonStyle={styles.btnStyles2}
+            icon={{
+              name: "alert",
+              type: "octicon"
+            }}
+            title={"Delete all DATA"}
+            onPress={() => clearData().then(() => this.fetchingData())}
+          />
         </ScrollView>
       );
     }
   }
 }
 const styles = StyleSheet.create({
+  btnRow: {
+    flex: 1,
+    justifyContent: "center",
+    flexDirection: "row",
+    padding: 10
+  },
   container: {
     padding: 25,
     backgroundColor: "#F8F8F8"
@@ -93,6 +137,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginRight: 30,
     marginLeft: 30
+  },
+  btnStyles: {
+    backgroundColor: "purple",
+    borderRadius: 20,
+    margin: 5
+  },
+  btnStyles2: {
+    backgroundColor: "red",
+    borderRadius: 20,
+    margin: 5
   },
   textStyle: {
     fontSize: 24,

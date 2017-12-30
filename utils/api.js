@@ -34,5 +34,10 @@ export function addCardToDeck(title, card) {
   });
 }
 export function delDeck(title) {
-  // return AsyncStorage.removeItem(UDCARDS_KEY,)
+  return AsyncStorage.getItem(UDCARDS_KEY).then(results => {
+    const data = JSON.parse(results);
+    data[title] = undefined;
+    delete data[title];
+    AsyncStorage.setItem(UDCARDS_KEY, JSON.stringify(data));
+  });
 }

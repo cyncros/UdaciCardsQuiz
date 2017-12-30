@@ -26,9 +26,9 @@ class CreateDeck extends Component {
     title: "",
     validate: false
   };
+
   componentWillUnmount() {
     this.setState({ title: "", validate: false });
-    this.FormInput.clearText();
   }
 
   addDeck = () => {
@@ -38,7 +38,7 @@ class CreateDeck extends Component {
       saveDeckTitle(title);
       this.props.dispatch(addDeck(title));
       this.props.navigation.navigate("Deck", { title });
-      this.setState({ validate: false });
+      this.setState({ title: "", validate: false });
     } else {
       this.setState({ validate: true });
     }
@@ -51,7 +51,7 @@ class CreateDeck extends Component {
       <View style={styles.container}>
         <KeyboardAvoidingView behavior="padding">
           <Card
-            containerStyle={{ padding: 20 }}
+            containerStyle={{ padding: 30 }}
             image={{ uri: url }}
             featuredTitle={"New DECK TITLE"}
           >
@@ -69,7 +69,7 @@ class CreateDeck extends Component {
               large
               onPress={() => this.addDeck()}
               buttonStyle={{
-                backgroundColor: "green",
+                backgroundColor: "#512DA8",
                 borderRadius: 20,
                 margin: 20
               }}
@@ -96,6 +96,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     textAlign: "center"
+  },
+  btnBack: {
+    backgroundColor: "#673AB7",
+    borderRadius: 20,
+    margin: 20
   }
 });
 export default connect()(CreateDeck);
