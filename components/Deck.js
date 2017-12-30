@@ -23,12 +23,11 @@ class Deck extends Component {
 
   render() {
     const url = "http://lorempixel.com/400/200/";
-    console.log(this.props, "props");
 
     const { deck, navigation } = this.props;
     const deckId = deck[navigation.state.params.title];
     const numQuest = deckId.questions.length;
-    console.log(numQuest);
+
     return (
       <ScrollView style={styles.container}>
         <Card
@@ -59,7 +58,7 @@ class Deck extends Component {
                   raised
                   large
                   buttonStyle={styles.btnStyles}
-                  icon={{
+                  rightIcon={{
                     name: "page-search",
                     type: "foundation"
                   }}

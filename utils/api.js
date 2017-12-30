@@ -22,12 +22,17 @@ export function saveDeckTitle(deckTitle) {
   );
 }
 
+export function clearData() {
+  return AsyncStorage.clear();
+}
+
 export function addCardToDeck(title, card) {
   return AsyncStorage.getItem(UDCARDS_KEY).then(result => {
     const data = JSON.parse(result);
-    data[title].questions = data[title].questions.concat(card);
-    console.log(data[title], "titles");
-    console.log(data[title].questions, "QUEST");
+    data[title].questions = data[title].questions.concat({ card });
     AsyncStorage.setItem(UDCARDS_KEY, JSON.stringify(data));
   });
+}
+export function delDeck(title) {
+  // return AsyncStorage.removeItem(UDCARDS_KEY,)
 }

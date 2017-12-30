@@ -32,10 +32,10 @@ class AddCard extends Component {
     const deckId = this.props.navigation.state.params.title;
     const { question, answer } = this.state;
     if (question.length && answer.length > 0) {
+      addCardToDeck(deckId, { card: { question, answer } });
       this.props.dispatch(addCard(deckId, { question, answer }));
       this.props.navigation.goBack();
-      console.log(deckId, "id");
-      addCardToDeck(deckId, { card: { question, answer } });
+
       this.setState({ question: "", answer: "", validate: false });
     } else {
       this.setState({ validate: true });
@@ -48,7 +48,7 @@ class AddCard extends Component {
       <ScrollView style={styles.container}>
         <KeyboardAvoidingView behavior="padding">
           <Card
-            containerStyle={{ padding: 5 }}
+            containerStyle={{ padding: 10 }}
             image={{ uri: url }}
             featuredTitle={"Question & Answer "}
           >
@@ -88,7 +88,7 @@ class AddCard extends Component {
                 onPress={() => this.props.navigation.goBack()}
                 large
                 buttonStyle={styles.btnStyles2}
-                icon={{
+                rightIcon={{
                   name: "circle-slash",
                   type: "octicon"
                 }}

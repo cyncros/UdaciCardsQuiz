@@ -34,10 +34,11 @@ class CreateDeck extends Component {
   addDeck = () => {
     const { title } = this.state;
     if (title.length > 0) {
+      console.log(title, "TITLES");
+      saveDeckTitle(title);
       this.props.dispatch(addDeck(title));
       this.props.navigation.navigate("Deck", { title });
-      saveDeckTitle(title);
-      this.setState({ title: "", validate: false });
+      this.setState({ validate: false });
     } else {
       this.setState({ validate: true });
     }
@@ -50,14 +51,13 @@ class CreateDeck extends Component {
       <View style={styles.container}>
         <KeyboardAvoidingView behavior="padding">
           <Card
-            style={styles.card}
-            containerStyle={{ padding: 10 }}
+            containerStyle={{ padding: 20 }}
             image={{ uri: url }}
             featuredTitle={"New DECK TITLE"}
           >
             <FormInput
               placeholder="Deck Title"
-              onChangeText={title => this.setState({ title })}
+              onChangeText={text => this.setState({ title: text })}
               value={this.state.title}
               shake={this.state.validate}
             />
@@ -67,7 +67,7 @@ class CreateDeck extends Component {
             <Button
               raised
               large
-              onPress={this.addDeck}
+              onPress={() => this.addDeck()}
               buttonStyle={{
                 backgroundColor: "green",
                 borderRadius: 20,

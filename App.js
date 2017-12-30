@@ -9,9 +9,9 @@ import DeckList from "./components/DecksList";
 import CreateDeck from "./components/CreateDeck";
 import Deck from "./components/Deck";
 import AddCard from "./components/AddCard";
-import Quiz from "./components/Quiz"
+import Quiz from "./components/Quiz";
 import { Constants } from "expo";
-import {setLocalNotification} from './utils/Notifications'
+import { setLocalNotification } from "./utils/Notifications";
 
 const store = createStore(reducer);
 
@@ -49,7 +49,7 @@ const Tabs = TabNavigator(
       activeTintColor: Platform.OS === "ios" ? "purple" : "white",
       style: {
         height: 56,
-        backgroundColor: Platform.OS === "ios" ? "white" : "purple",
+        backgroundColor: Platform.OS === "ios" ? "white" : "blue",
         shadowColor: "rgba(0, 0, 0, 0.24)",
         shadowOffset: {
           width: 0,
@@ -92,9 +92,9 @@ const MainNavigator = StackNavigator({
 });
 
 export default class App extends React.Component {
-componentDidMount(){
-  setLocalNotification()
-}
+  componentDidMount() {
+    setLocalNotification();
+  }
 
   render() {
     return (

@@ -58,18 +58,16 @@ class Quiz extends Component {
 
     let { index, score, finish } = this.state;
     let quest = this.props.deck[info].questions;
-    console.log(this.props.deck);
-    console.log(info, "infoQUIZ");
-    console.log(quest, "quest");
-    console.log(index, "index");
+
     if (finish) {
       return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
           <Card
             title={` Final Score:${score / quest.length * 100} % `}
             image={{ uri: url }}
             featuredTitle={`Number of questions ${quest.length}`}
           >
+            <View style={styles.btnRow}>
             <Button
               raised
               onPress={() => this.startOver()}
@@ -86,14 +84,15 @@ class Quiz extends Component {
               onPress={() => this.backDeck()}
               large
               buttonStyle={styles.btnStyles}
-              icon={{
+              rightIcon={{
                 name: "file-code",
                 type: "octicon"
               }}
               title="Back"
             />
+          </View>
           </Card>
-        </View>
+        </ScrollView>
       );
     }
 
@@ -122,6 +121,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     textAlign: "center"
+  },
+  btnRow: {
+    flex: 1,
+    justifyContent: "center",
+    flexDirection: "row",
+    padding: 10
   },
   btnStyles: {
     backgroundColor: "#3399ff",

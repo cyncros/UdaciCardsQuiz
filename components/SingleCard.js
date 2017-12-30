@@ -26,7 +26,6 @@ export default class SingleCard extends Component {
   };
 
   render() {
-    console.log(this.props.card, "card Q&A");
     //Answer ON!!
     if (this.state.show) {
       return (
@@ -56,8 +55,8 @@ export default class SingleCard extends Component {
               }}
               large
               buttonStyle={styles.btnError}
-              icon={{
-                name: "check",
+              rightIcon={{
+                name: "x",
                 type: "octicon"
               }}
               title="Incorrect!!"

@@ -15,12 +15,20 @@ import { getDecks } from "../utils/api";
 import { h1, Card, ListItem, Button, Icon } from "react-native-elements";
 
 class DeckList extends Component {
+  state = {
+    opacity: new Animated.Value(0)
+  };
+  componentDidMount() {
+    const { opacity } = this.state;
+    Animated.timing(opacity, { toValue: 1, duration: 1000 }).start();
+  }
   async componentDidMount() {
     const { dispatch } = this.props;
     const data = await getDecks();
     dispatch(fetchDecks(JSON.parse(data)));
   }
   handledEvent = title => {
+    console.log(title,"decktitle");
     this.props.navigation.navigate("Deck", { title });
   };
 

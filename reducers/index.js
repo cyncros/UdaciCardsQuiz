@@ -1,10 +1,18 @@
-import { FETCH_DECKS, ADD_DECK, ADD_CARD } from "../actions";
+import { FETCH_DECKS, ADD_DECK, ADD_CARD, REMOVE_DECK } from "../actions";
+import omit from "lodash.omit";
+
 const initialState = {
   deck: {}
 };
 
 function deck(state = initialState, action) {
   switch (action.type) {
+    case REMOVE_DECK:
+      let delDeck = omit(state.deck, action.data);
+      return {
+        ...state,
+        deck: delDeck
+      };
     case FETCH_DECKS:
       return {
         ...state,
@@ -12,10 +20,13 @@ function deck(state = initialState, action) {
       };
     case ADD_DECK:
       return {
-        ...state.deck,
-        [action.title]: {
-          title: action.title,
-          questions: []
+        ...state,
+        deck: {
+          ...state.deck,
+          [action.title]: {
+            title: action.title,
+            questions: []
+          }
         }
       };
     case ADD_CARD:
@@ -26,7 +37,7 @@ function deck(state = initialState, action) {
           ...state.deck,
           [id]: {
             ...state.deck[id],
-            questions: [...state.deck[id].questions, card]
+            questions: [...state.deck[id].questions, { card: card }]
           }
         }
       };
